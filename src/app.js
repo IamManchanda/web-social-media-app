@@ -1,4 +1,12 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+import "./assets/styles/scss/app.scss";
+import MenuBar from "./components/menu-bar";
+import PageIndex from "./pages/index";
+import PageLogin from "./pages/login";
+import PageRegister from "./pages/register";
+import { Container } from "semantic-ui-react";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -8,9 +16,14 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div>
-        <h1>Hi World!</h1>
-      </div>
+      <Router>
+        <Container>
+          <MenuBar />
+          <Route exact path="/" component={PageIndex} />
+          <Route exact path="/login" component={PageLogin} />
+          <Route exact path="/register" component={PageRegister} />
+        </Container>
+      </Router>
     </ApolloProvider>
   );
 }
