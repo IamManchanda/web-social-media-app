@@ -1,9 +1,14 @@
 import { useQuery } from "@apollo/client";
+import { useContext } from "react";
 import { Grid } from "semantic-ui-react";
 import PostCard from "../components/post-card";
+import PostForm from "../components/post-form";
 import { FETCH_POSTS_QUERY } from "../constants/queries";
+import { AuthContext } from "../context/auth";
 
 function PageIndex() {
+  const { user } = useContext(AuthContext);
+
   const { loading, data: { getPosts: posts } = {} } = useQuery(
     FETCH_POSTS_QUERY,
   );
@@ -14,6 +19,11 @@ function PageIndex() {
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
+        {user && (
+          <Grid.Column>
+            <PostForm />
+          </Grid.Column>
+        )}
         {loading ? (
           <h1>Loading Posts...</h1>
         ) : (
