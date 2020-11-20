@@ -7,6 +7,7 @@ import PageIndex from "./pages/index";
 import PageLogin from "./pages/login";
 import PageRegister from "./pages/register";
 import { Container } from "semantic-ui-react";
+import { AuthProvider } from "./context/auth";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000",
@@ -16,14 +17,16 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Router>
-        <Container>
-          <MenuBar />
-          <Route exact path="/" component={PageIndex} />
-          <Route exact path="/login" component={PageLogin} />
-          <Route exact path="/register" component={PageRegister} />
-        </Container>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Container>
+            <MenuBar />
+            <Route exact path="/" component={PageIndex} />
+            <Route exact path="/login" component={PageLogin} />
+            <Route exact path="/register" component={PageRegister} />
+          </Container>
+        </Router>
+      </AuthProvider>
     </ApolloProvider>
   );
 }
