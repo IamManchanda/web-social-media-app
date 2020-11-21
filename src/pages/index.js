@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useContext } from "react";
-import { Grid } from "semantic-ui-react";
+import { Grid, Transition } from "semantic-ui-react";
 import PostCard from "../components/post-card";
 import PostForm from "../components/post-form";
 import { FETCH_POSTS_QUERY } from "../constants/queries";
@@ -27,17 +27,19 @@ function PageIndex() {
         {loading ? (
           <h1>Loading Posts...</h1>
         ) : (
-          posts &&
-          posts.map((post) => (
-            <Grid.Column
-              key={post.id}
-              style={{
-                marginBottom: "1.25rem",
-              }}
-            >
-              <PostCard post={post} />
-            </Grid.Column>
-          ))
+          <Transition.Group duration={1000}>
+            {posts &&
+              posts.map((post) => (
+                <Grid.Column
+                  key={post.id}
+                  style={{
+                    marginBottom: "1.25rem",
+                  }}
+                >
+                  <PostCard post={post} />
+                </Grid.Column>
+              ))}
+          </Transition.Group>
         )}
       </Grid.Row>
     </Grid>
