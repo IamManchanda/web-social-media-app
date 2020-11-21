@@ -19,10 +19,6 @@ function PostCard({
     console.log("Like on Post...");
   };
 
-  const handleCommentOnPost = () => {
-    console.log("Comment on Post...");
-  };
-
   return (
     <Card fluid>
       <Card.Content>
@@ -46,7 +42,7 @@ function PostCard({
             {likesCount}
           </Label>
         </Button>
-        <Button as="div" labelPosition="right" onClick={handleCommentOnPost}>
+        <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
           </Button>
