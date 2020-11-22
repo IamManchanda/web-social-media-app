@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Icon, Label } from "semantic-ui-react";
 import { LIKE_POST_MUTATION } from "../constants/mutations";
