@@ -18,7 +18,8 @@ import PageSinglePost from "./pages/single-post";
 import AuthRoute from "./utils/auth-route";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000",
+  /* uri: "http://localhost:4000", */
+  uri: "https://api-social-media-app.harrymanchanda.in",
 });
 
 const authLink = setContext(() => {
