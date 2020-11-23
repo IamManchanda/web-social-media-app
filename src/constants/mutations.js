@@ -43,12 +43,6 @@ export const CREATE_POST_MUTATION = gql`
       body
       createdAt
       username
-      comments {
-        id
-        body
-        username
-        createdAt
-      }
       commentsCount
       likes {
         id

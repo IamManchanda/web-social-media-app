@@ -12,7 +12,6 @@ function PostCard({
     body,
     createdAt,
     username,
-    comments,
     commentsCount,
     likes,
     likesCount,
