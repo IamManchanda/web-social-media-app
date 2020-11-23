@@ -19,6 +19,7 @@ function PageLogin({ history }) {
   );
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+    variables: values,
     update(_proxy, { data: { login: userData } = {} }) {
       login(userData);
       history.push("/");
@@ -26,7 +27,6 @@ function PageLogin({ history }) {
     onError(error) {
       setErrors(error.graphQLErrors[0].extensions.exception.errors);
     },
-    variables: values,
   });
 
   function loginUserCallback() {

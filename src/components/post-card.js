@@ -36,8 +36,8 @@ function PostCard({
       <Card.Content extra>
         <LikeButton user={user} post={{ id, likes, likesCount }} />
         <Popup
-          content="Comment on post"
           inverted
+          content="Comment on post"
           trigger={
             <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
               <Button color="blue" basic>

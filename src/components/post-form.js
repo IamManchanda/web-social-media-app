@@ -30,7 +30,7 @@ function PostForm() {
       values.body = "";
     },
     onError(error) {
-      console.error(error.graphQLErrors[0].message);
+      console.log(error.graphQLErrors[0].message);
     },
   });
 

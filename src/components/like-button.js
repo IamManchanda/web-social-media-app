@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Icon, Label } from "semantic-ui-react";
+import { Button, Icon, Label, Popup } from "semantic-ui-react";
 import { LIKE_POST_MUTATION } from "../constants/mutations";
 
 function LikeButton({ user, post: { id, likes, likesCount } = {} }) {
@@ -21,23 +21,38 @@ function LikeButton({ user, post: { id, likes, likesCount } = {} }) {
     },
   });
 
-  return (
+  return user ? (
     <Button as="div" labelPosition="right" onClick={likePost}>
-      {user ? (
-        liked ? (
-          <Button color="teal">
+      <Popup
+        inverted
+        content={liked ? "Unlike" : "Like"}
+        trigger={
+          liked ? (
+            <Button color="teal">
+              <Icon name="heart" />
+            </Button>
+          ) : (
+            <Button color="teal" basic>
+              <Icon name="heart" />
+            </Button>
+          )
+        }
+      />
+      <Label basic color="teal" pointing="left">
+        {likesCount}
+      </Label>
+    </Button>
+  ) : (
+    <Button as="div" labelPosition="right">
+      <Popup
+        inverted
+        content="Like"
+        trigger={
+          <Button as={Link} to="/login" color="teal" basic>
             <Icon name="heart" />
           </Button>
-        ) : (
-          <Button color="teal" basic>
-            <Icon name="heart" />
-          </Button>
-        )
-      ) : (
-        <Button as={Link} to="/login" color="teal" basic>
-          <Icon name="heart" />
-        </Button>
-      )}
+        }
+      />
       <Label basic color="teal" pointing="left">
         {likesCount}
       </Label>

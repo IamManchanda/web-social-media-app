@@ -21,6 +21,7 @@ function PageRegister({ history }) {
   );
 
   const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+    variables: values,
     update(_proxy, { data: { register: userData } = {} }) {
       login(userData);
       history.push("/");
@@ -28,7 +29,6 @@ function PageRegister({ history }) {
     onError(error) {
       setErrors(error.graphQLErrors[0].extensions.exception.errors);
     },
-    variables: values,
   });
 
   function registerUserCallback() {

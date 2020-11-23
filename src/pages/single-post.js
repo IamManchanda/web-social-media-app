@@ -8,6 +8,7 @@ import {
   Icon,
   Image,
   Label,
+  Popup,
 } from "semantic-ui-react";
 import DeleteButton from "../components/delete-button";
 import LikeButton from "../components/like-button";
@@ -30,13 +31,16 @@ function PageSinglePost({ match, history }) {
   });
 
   const [createComment] = useMutation(CREATE_COMMENT_MUTATION, {
+    variables: {
+      postId,
+      body: comment,
+    },
     update(_proxy, _result) {
       setComment("");
       commentInputRef.current.blur();
     },
-    variables: {
-      postId,
-      body: comment,
+    onError(error) {
+      console.log(error.graphQLErrors[0].message);
     },
   });
 
@@ -84,18 +88,24 @@ function PageSinglePost({ match, history }) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likes, likesCount }} />
-                <Button
-                  labelPosition="right"
-                  as="div"
-                  onClick={() => console.log("comment on post")}
-                >
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
-                  </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentsCount}
-                  </Label>
-                </Button>
+                <Popup
+                  inverted
+                  content="Comment on post"
+                  trigger={
+                    <Button
+                      labelPosition="right"
+                      as="div"
+                      onClick={() => console.log("comment on post")}
+                    >
+                      <Button color="blue" basic>
+                        <Icon name="comments" />
+                      </Button>
+                      <Label basic color="blue" pointing="left">
+                        {commentsCount}
+                      </Label>
+                    </Button>
+                  }
+                />
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}

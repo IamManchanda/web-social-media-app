@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { Fragment, useState } from "react";
-import { Button, Confirm, Icon } from "semantic-ui-react";
+import { Button, Confirm, Icon, Popup } from "semantic-ui-react";
 import {
   DELETE_COMMENT_MUTATION,
   DELETE_POST_MUTATION,
@@ -13,6 +13,10 @@ function DeleteButton({ postId, commentId, callback }) {
   const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
 
   const [deletePostOrComment] = useMutation(mutation, {
+    variables: {
+      postId,
+      commentId,
+    },
     update(proxy, _result) {
       setConfirmOpen(false);
 
@@ -32,23 +36,28 @@ function DeleteButton({ postId, commentId, callback }) {
 
       if (callback) callback();
     },
-    variables: {
-      postId,
-      commentId,
+    onError(error) {
+      console.log(error.graphQLErrors[0].message);
     },
   });
 
   return (
     <Fragment>
-      <Button
-        icon
-        as="div"
-        color="red"
-        floated="right"
-        onClick={() => setConfirmOpen(true)}
-      >
-        <Icon name="trash" style={{ margin: 0 }} />
-      </Button>
+      <Popup
+        inverted
+        content={commentId ? "Delete Comment" : "Delete Post"}
+        trigger={
+          <Button
+            icon
+            as="div"
+            color="red"
+            floated="right"
+            onClick={() => setConfirmOpen(true)}
+          >
+            <Icon name="trash" style={{ margin: 0 }} />
+          </Button>
+        }
+      />
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
