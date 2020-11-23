@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, Icon, Image, Label } from "semantic-ui-react";
 import { AuthContext } from "../context/auth";
 import dayjs from "../utils/dayjs";
+import DeleteButton from "./delete-button";
 import LikeButton from "./like-button";
 
 function PostCard({
@@ -43,17 +44,7 @@ function PostCard({
             {commentsCount}
           </Label>
         </Button>
-        {user && user.username === username && (
-          <Button
-            icon
-            as="div"
-            color="red"
-            floated="right"
-            onClick={() => console.log("delete post")}
-          >
-            <Icon name="trash" style={{ margin: 0 }} />
-          </Button>
-        )}
+        {user && user.username === username && <DeleteButton postId={id} />}
       </Card.Content>
     </Card>
   );

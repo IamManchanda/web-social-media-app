@@ -1,20 +1,25 @@
 import { useQuery } from "@apollo/client";
 import { useContext } from "react";
 import { Button, Card, Grid, Icon, Image, Label } from "semantic-ui-react";
+import DeleteButton from "../components/delete-button";
 import LikeButton from "../components/like-button";
 import { FETCH_POST_QUERY } from "../constants/queries";
 import { AuthContext } from "../context/auth";
 import dayjs from "../utils/dayjs";
 
-function PageSinglePost(props) {
+function PageSinglePost({ match, history }) {
   const { user } = useContext(AuthContext);
 
-  const { postId } = props.match.params;
+  const { postId } = match.params;
   const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
     },
   });
+
+  function handleDeletePost() {
+    history.push("/");
+  }
 
   let postMarkup;
 
@@ -64,6 +69,9 @@ function PageSinglePost(props) {
                     {commentsCount}
                   </Label>
                 </Button>
+                {user && user.username === username && (
+                  <DeleteButton postId={id} callback={handleDeletePost} />
+                )}
               </Card.Content>
             </Card>
           </Grid.Column>
