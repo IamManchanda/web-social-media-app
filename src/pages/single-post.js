@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { Button, Card, Grid, Icon, Image, Label } from "semantic-ui-react";
-import { FETCH_POST_QUERY } from "../constants/queries";
-import moment from "moment";
 import { useContext } from "react";
-import { AuthContext } from "../context/auth";
+import { Button, Card, Grid, Icon, Image, Label } from "semantic-ui-react";
 import LikeButton from "../components/like-button";
+import { FETCH_POST_QUERY } from "../constants/queries";
+import { AuthContext } from "../context/auth";
+import dayjs from "../utils/dayjs";
 
 function PageSinglePost(props) {
   const { user } = useContext(AuthContext);
@@ -46,7 +46,7 @@ function PageSinglePost(props) {
             <Card fluid>
               <Card.Content>
                 <Card.Header>{username}</Card.Header>
-                <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
+                <Card.Meta>{dayjs(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
               <hr />

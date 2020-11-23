@@ -1,8 +1,8 @@
-import moment from "moment";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Card, Icon, Image, Label } from "semantic-ui-react";
 import { AuthContext } from "../context/auth";
+import dayjs from "../utils/dayjs";
 import LikeButton from "./like-button";
 
 function PostCard({
@@ -29,7 +29,7 @@ function PostCard({
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
-          {moment(createdAt).fromNow()}
+          {dayjs(createdAt).fromNow()}
         </Card.Meta>
         <Card.Description>{body}</Card.Description>
       </Card.Content>
